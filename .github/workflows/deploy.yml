@@ -3,32 +3,51 @@ name: Deploy to AWS
 on:
   push:
     branches:
-      - main   # triggers when you push to main
+      - main   # change if needed
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 1. Get Code from GitHub
+
+      # 1. Checkout Code
+      - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: 2. Install Dependencies
+      # 2. Install Dependencies
+      - name: Install Dependencies
         run: npm install
 
-      - name: 3. Build Project
+      # 3. Build Project
+      - name: Build Project
         run: npm run build
 
-      - name: 4. Upload to AWS Server
+      # 4. Clean OLD files (VERY IMPORTANT)
+      - name: Clean old files on server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          script: |
+            rm -rf /var/www/html/TV_Screens/Demo/*
+
+      # 5. Upload NEW build files
+      - name: Upload to AWS Server
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
           source: "dist/*"
           target: "/var/www/html/TV_Screens/Demo"
+          overwrite: true
 
-      - name: 5. Restart Server
+      # 6. Restart Nginx
+      - name: Restart Nginx
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.EC2_HOST }}
