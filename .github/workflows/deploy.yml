@@ -11,30 +11,32 @@ jobs:
 
     steps:
 
-      # 1. Checkout
+      # 1. Checkout Code
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # 2. Install
+      # 2. Install Dependencies
       - name: Install Dependencies
         run: npm install
 
-      # 3. Build
+      # 3. Build Project
       - name: Build Project
         run: npm run build
 
-      # 4. Clean ONLY Demo folder
-      - name: Clean Demo folder
+      # 4. Clean + Reset Folder (STRONG CLEAN)
+      - name: Clean and prepare Demo folder
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            rm -rf /var/www/html/TV_Screens/Demo/*
-            mkdir -p /var/www/html/TV_Screens/Demo
+            sudo rm -rf /var/www/html/TV_Screens/Demo
+            sudo mkdir -p /var/www/html/TV_Screens/Demo
+            sudo chown -R ubuntu:ubuntu /var/www/html/TV_Screens/Demo
+            sudo chmod -R 755 /var/www/html/TV_Screens/Demo
 
-      # 5. Upload ONLY dist contents (NO nested folder)
+      # 5. Upload Build Files (FLAT STRUCTURE)
       - name: Upload build files
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -46,8 +48,8 @@ jobs:
           overwrite: true
           strip_components: 1
 
-      # 6. Fix permissions (IMPORTANT for 500 error)
-      - name: Fix permissions
+      # 6. Set Correct Permissions (FINAL FIX)
+      - name: Set permissions
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.EC2_HOST }}
@@ -57,7 +59,7 @@ jobs:
             sudo chown -R ubuntu:ubuntu /var/www/html/TV_Screens/Demo
             sudo chmod -R 755 /var/www/html/TV_Screens/Demo
 
-      # 7. Restart nginx
+      # 7. Restart Nginx (apply changes)
       - name: Restart Nginx
         uses: appleboy/ssh-action@v1.0.3
         with:
