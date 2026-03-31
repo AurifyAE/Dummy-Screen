@@ -3,6 +3,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px;
+  background-color: aliceblue;
   border-bottom: 2px solid var(--color-card-border);
 }
 
