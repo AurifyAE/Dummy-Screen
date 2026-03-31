@@ -1,0 +1,80 @@
+.rates-table-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.table-header {
+  background: rgba(255, 215, 0, 0.1);
+  padding: 15px 20px;
+  text-align: center;
+  border-bottom: 2px solid var(--color-neon-amber-dim);
+}
+
+.table-header h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 3px;
+  color: var(--color-neon-amber);
+  text-shadow: 0 0 15px var(--color-neon-amber-dim);
+  margin: 0;
+}
+
+.rates-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.rates-table th {
+  padding: 20px;
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  border-bottom: 1px solid var(--color-card-border);
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.th-left { text-align: left; }
+.th-center { text-align: center; }
+.th-right { text-align: right; }
+
+.rate-row {
+  transition: background-color 0.2s;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.rate-row:nth-child(even) {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.rate-row:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.rates-table td {
+  padding: 25px 20px;
+  font-size: 1.6rem;
+  vertical-align: middle;
+}
+
+.col-name {
+  font-weight: 700;
+  color: var(--color-text-main);
+}
+
+.col-unit {
+  text-align: center;
+  color: var(--color-text-dim);
+  font-weight: 600;
+}
+
+.col-bid, .col-ask {
+  text-align: right;
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+/* Flash animation handled by index.css class */

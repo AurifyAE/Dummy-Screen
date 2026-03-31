@@ -1,0 +1,122 @@
+:root {
+  --color-bg: #050812;
+  --color-grid: rgba(255, 255, 255, 0.05);
+  --color-card-bg: rgba(10, 18, 40, 0.6);
+  --color-card-border: rgba(255, 255, 255, 0.05);
+  --color-neon-green: #00ff88;
+  --color-neon-green-dim: rgba(0, 255, 136, 0.2);
+  --color-neon-amber: #ffd700;
+  --color-neon-amber-dim: rgba(255, 215, 0, 0.2);
+  --color-red: #ff3333;
+  --color-text-main: #ffffff;
+  --color-text-dim: #a0aec0;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-main);
+  font-family: 'Rajdhani', sans-serif;
+  overflow: hidden;
+  height: 100vh;
+  margin: 0;
+  /* futuristic grid texture */
+  background-image: 
+    linear-gradient(var(--color-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
+  background-size: 50px 50px;
+  background-position: center center;
+}
+
+#root {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.orbitron {
+  font-family: 'Orbitron', sans-serif;
+}
+
+/* Base Utility Classes */
+.text-green { color: var(--color-neon-green); }
+.text-amber { color: var(--color-neon-amber); }
+.text-red { color: var(--color-red); }
+.text-white { color: var(--color-text-main); }
+.text-dim { color: var(--color-text-dim); }
+
+.glow-text-green { text-shadow: 0 0 10px var(--color-neon-green-dim), 0 0 20px var(--color-neon-green-dim); }
+.glow-text-amber { text-shadow: 0 0 10px var(--color-neon-amber-dim), 0 0 20px var(--color-neon-amber-dim); }
+.glow-text-red { text-shadow: 0 0 10px rgba(255, 51, 51, 0.5); }
+
+.glow-box-green {
+  box-shadow: 0 0 20px var(--color-neon-green-dim), inset 0 0 15px var(--color-neon-green-dim);
+  border: 1px solid var(--color-neon-green-dim) !important;
+}
+
+.glow-box-amber {
+  box-shadow: 0 0 20px var(--color-neon-amber-dim), inset 0 0 15px var(--color-neon-amber-dim);
+  border: 1px solid var(--color-neon-amber-dim) !important;
+}
+
+.card {
+  background: var(--color-card-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--color-card-border);
+  border-radius: 8px;
+}
+
+/* Flash Animations */
+@keyframes flashUp {
+  0% { 
+    background-color: rgba(0, 255, 136, 0.5); 
+    box-shadow: 0 0 30px var(--color-neon-green);
+    transform: scale(1.02);
+  }
+  100% { 
+    background-color: transparent; 
+    box-shadow: none;
+    transform: scale(1);
+  }
+}
+
+@keyframes flashDown {
+  0% { 
+    background-color: rgba(255, 51, 51, 0.5); 
+    box-shadow: 0 0 30px var(--color-red);
+    transform: scale(0.98);
+  }
+  100% { 
+    background-color: transparent; 
+    box-shadow: none;
+    transform: scale(1);
+  }
+}
+
+.flash-up {
+  animation: flashUp 0.8s ease-out;
+}
+
+.flash-down {
+  animation: flashDown 0.8s ease-out;
+}
+
+/* Custom Scrollbar for tables if needed */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.2);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,0.4);
+}
