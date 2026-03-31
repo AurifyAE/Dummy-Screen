@@ -16,6 +16,8 @@ const PriceBox = ({ title, bid, ask, low, high, isAed = false }) => {
           <div className="price-value orbitron text-white">{bid.toFixed(isAed ? 3 : 2)}</div>
         </div>
         {/* ASK */}
+
+        
         <div className={`price-item glow-box-amber ${askFlash}`}>
           <div className="price-label orbitron text-amber glow-text-amber">ASK</div>
           <div className="price-value orbitron text-white">{ask.toFixed(isAed ? 3 : 2)}</div>
