@@ -3,7 +3,6 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  background-color: rgba(149, 0, 255, 0.8);
   border-bottom: 2px solid var(--color-card-border);
 }
 
